@@ -103,7 +103,7 @@ def verificar_senha(senha):
         relatorio.append("Senhas com 12+ caracteres são mais seguras.")
 
     if tamanho_senha >= 16:
-        pontos += 10
+        pontos += 20
     else:
         relatorio.append("Para segurança máxima, use mais de 16 caracteres.")
 
