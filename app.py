@@ -5,7 +5,7 @@ from flask import Flask
 
 app_api = Flask(__name__)
 
-@app_api.route('https://verificador-senha-api-dzx3.vercel.app/senha/123/senha/<senha>')
+@app_api.route('https://verificador-senha-api.vercel.app/senha/123/senha/<senha>')
 def verificar_senha(senha):
     pontos = 0
     relatorio = []
