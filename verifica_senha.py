@@ -1,7 +1,11 @@
 '''
 API - Verificar a qualidade e força de uma senha.
 '''
+from flask import Flask
 
+app_api = Flask(__name__)
+
+@app_api.route('/senha/<senha>')
 def verificar_senha(senha):
     pontos = 0
     relatorio = []
@@ -40,7 +44,7 @@ def verificar_senha(senha):
         elif caractere in caracteres_especiais:
             existe_caracteres_especiais = True
         else:
-            relatorio.append('Caractere inválido encontrado. Use apenas letras, números e símbolos permitidos.')
+            relatorio.append('Caractere inválido encontrado. Use apenas letras, números e símbolos.')
             return {
                 "senha": senha,
                 "pontuacao": 0,
@@ -73,6 +77,7 @@ def verificar_senha(senha):
     senhas_comuns = { 
         "123456", "123456789", "12345678", "12345", "1234567", "1234567890", "000000", "111111", "222222", "333333", "444444", "555555", "666666", "777777", "888888", "999999", "password", "senha", "admin", "user", "guest", "login", "welcome", "letmein", "qwerty", "abc123", "iloveyou", "monkey", "dragon", "football", "baseball", "superman", "pokemon", "batman", "sunshine", "princess", "flower", "master", "shadow", "killer", "soccer", "hottie", "freedom", "whatever", "mustang", "hello", "password1", "senha123", "admin123", "qwerty123", "abc1234", "welcome1", "letmein123", "iloveyou1", "dragon123", "123123", "654321", "121212", "112233", "1q2w3e4r", "1qaz2wsx", "zaq12wsx", "qazwsx", "asdfgh", "asdf1234", "qwertyuiop", "asdfghjkl", "zxcvbnm", "1q2w3e", "qwe123", "poiuyt", "mnbvcxz", "qaz123", "passw0rd", "p@ssword", "brasil", "deus", "amor", "familia", "jesus", "corinthians", "flamengo", "vasco", "palmeiras", "santos", "gato", "cachorro", "amorzinho", "123mudar", "meuamor", "minhasenha" 
         }
+    
     # Algumas penalidades
     senha_lower = senha.lower()
     if senha_lower in senhas_comuns:
@@ -109,18 +114,20 @@ def verificar_senha(senha):
         nivel = "Muito fraca"
     elif pontos < 50:
         nivel = "Fraca"
+    elif pontos < 70:
+        nivel = "Média"
     elif pontos < 80:
         nivel = "Forte"
-    elif pontos < 90:
-        nivel = "Muito forte"
     else:
         nivel = "Excelente"
 
     # Feedback final
     if pontos >= 80:
         relatorio.append("Ótimo! Sua senha é forte.")
+    elif pontos >= 70:
+        relatorio.append("Senha mediana, mas pode ser melhorada com mais caracteres ou variedade.")
     elif pontos >= 50:
-        relatorio.append("Sua senha é razoável/forte, mas pode melhorar com mais variedade e tamanho.")
+        relatorio.append("Sua senha é razoável, mas pode melhorar com mais variedade e tamanho.")
     else:
         relatorio.append("Precisa melhorar muito sua senha.")
 
@@ -130,3 +137,6 @@ def verificar_senha(senha):
         "nivel": nivel,
         "relatorio": relatorio
     }
+
+if __name__ == '__main__':
+    app_api.run()
