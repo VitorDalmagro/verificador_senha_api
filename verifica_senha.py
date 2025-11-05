@@ -1,7 +1,7 @@
 '''
 API - Verificar a qualidade e força de uma senha.
 '''
-from flask import Flask
+from flask import Flask, jsonify
 
 app_api = Flask(__name__)
 
@@ -27,12 +27,14 @@ def verificar_senha(senha):
     # Verificação de senha vazia
     if senha == senha_vazia:
         relatorio.append('A senha não pode ser vazia.')
-        return {
+
+        resultado ={
             "senha": senha,
             "pontuacao": 0,
             "nivel": "Inválida",
             "relatorio": relatorio
         }       
+        return jsonify(resultado)
 
     for caractere in senha:
         if caractere in letras_maiusculas:
@@ -45,12 +47,14 @@ def verificar_senha(senha):
             existe_caracteres_especiais = True
         else:
             relatorio.append('Caractere inválido encontrado. Use apenas letras, números e símbolos.')
-            return {
+            
+            resultado =  {
                 "senha": senha,
                 "pontuacao": 0,
                 "nivel": "Inválida",
                 "relatorio": relatorio
             }
+            return jsonify(resultado)
         
     # Adicionando pontos para caracteres existentes
     if existe_letras_maiusculas:
@@ -130,13 +134,15 @@ def verificar_senha(senha):
         relatorio.append("Sua senha é razoável, mas pode melhorar com mais variedade e tamanho.")
     else:
         relatorio.append("Precisa melhorar muito sua senha.")
-
-    return {
+    
+    resultado =  {
         "senha": senha,
         "pontuacao": pontos,
         "nivel": nivel,
         "relatorio": relatorio
     }
+    
+    return jsonify(resultado)
 
 if __name__ == '__main__':
     app_api.run()
