@@ -26,7 +26,7 @@ def verificar_senha(senha):
 
     # Verificação de senha vazia
     if senha == senha_vazia:
-        relatorio.append('A senha não pode ser vazia.')
+        relatorio.append('A senha não pode ser vazia. |')
 
         resultado ={
             "senha": senha,
@@ -46,7 +46,7 @@ def verificar_senha(senha):
         elif caractere in caracteres_especiais:
             existe_caracteres_especiais = True
         else:
-            relatorio.append('Caractere inválido encontrado. Use apenas letras, números e símbolos.')
+            relatorio.append('Caractere inválido encontrado. Use apenas letras, números e símbolos. |')
             
             resultado =  {
                 "senha": senha,
@@ -60,22 +60,22 @@ def verificar_senha(senha):
     if existe_letras_maiusculas:
         pontos += 10
     else:
-        relatorio.append('A senha deve conter letras maiúsculas.')
+        relatorio.append('A senha deve conter letras maiúsculas. |')
 
     if existe_letras_minusculas:
         pontos += 10
     else:
-        relatorio.append('A senha deve conter letras minúsculas.')
+        relatorio.append('A senha deve conter letras minúsculas. |')
 
     if existe_numeros:
         pontos += 10
     else:
-        relatorio.append('A senha deve conter números.')
+        relatorio.append('A senha deve conter números. |')
 
     if existe_caracteres_especiais:
         pontos += 20
     else:
-        relatorio.append('A senha deve conter caracteres especiais.')
+        relatorio.append('A senha deve conter caracteres especiais. |')
 
     # Verificando senhas comuns
     senhas_comuns = { 
@@ -86,12 +86,12 @@ def verificar_senha(senha):
     senha_lower = senha.lower()
     if senha_lower in senhas_comuns:
         pontos -= 30
-        relatorio.append('A senha é muito comum ou fácil de adivinhar.')
+        relatorio.append('A senha é muito comum ou fácil de adivinhar. |')
 
     for seq in ["123", "abc", "qwerty"]:
         if seq in senha_lower:
             pontos -= 20
-            relatorio.append("Evite sequências previsíveis (ex: 123, abc, qwerty).")
+            relatorio.append("Evite sequências previsíveis (ex: 123, abc, qwerty). |")
             break
 
     # Avaliando tamanho da senha
@@ -99,17 +99,17 @@ def verificar_senha(senha):
     if tamanho_senha >= 8:
         pontos += 20
     else:
-        relatorio.append("Use pelo menos 8 caracteres.")
+        relatorio.append("Use pelo menos 8 caracteres. |")
 
     if tamanho_senha >= 12:
         pontos += 10
     else:
-        relatorio.append("Senhas com 12+ caracteres são mais seguras.")
+        relatorio.append("Senhas com 12+ caracteres são mais seguras. |")
 
     if tamanho_senha >= 16:
         pontos += 20
     else:
-        relatorio.append("Para segurança máxima, use mais de 16 caracteres.")
+        relatorio.append("Para segurança máxima, use mais de 16 caracteres. |")
 
     # Limitar pontuação e calcular nível final
     pontos = max(0, min(100, pontos))
@@ -127,13 +127,13 @@ def verificar_senha(senha):
 
     # Feedback final
     if pontos >= 80:
-        relatorio.append("Ótimo! Sua senha é forte.")
+        relatorio.append("Ótimo! Sua senha é forte. |")
     elif pontos >= 70:
-        relatorio.append("Senha mediana, mas pode ser melhorada com mais caracteres ou variedade.")
+        relatorio.append("Senha mediana, mas pode ser melhorada com mais caracteres ou variedade. |")
     elif pontos >= 50:
-        relatorio.append("Sua senha é razoável, mas pode melhorar com mais variedade e tamanho.")
+        relatorio.append("Sua senha é razoável, mas pode melhorar com mais variedade e tamanho. |")
     else:
-        relatorio.append("Precisa melhorar muito sua senha.")
+        relatorio.append("Precisa melhorar muito sua senha. |")
     
     resultado =  {
         "senha": senha,
