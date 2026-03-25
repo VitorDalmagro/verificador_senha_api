@@ -15,7 +15,7 @@ def verificar_senha(senha):
     letras_maiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     numeros = "0123456789"
     caracteres_especiais = r"!@#$%^&*()-_=+[]}{;:,.<>/|\?" 
-    # Esse r antes da string é para evitar erros com caracteres de escape (nem sabia que dava pra fazer isso kkkk)
+    # Esse r antes da string é para evitar erros com caracteres de escape.
 
     senha_vazia = ''
 
